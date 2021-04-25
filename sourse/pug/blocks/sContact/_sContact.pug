@@ -2,8 +2,15 @@ mixin sContact()
 	// start sContact
 	+b.SECTION.sContact.section#sContact&attributes(attributes)
 		.container
-			+b.section-title.text-center
-				h2 sContact
-				
-			.row
+			+e.inner
+				+e.title 
+					a(href="#").toggle-form-text Напишите 
+					br
+					| или позвоните мне
+				+e.tel(href="tel:+7909910-1777") +7 909 910-1777
+				p Я&nbsp;уверена что мы&nbsp;подберем для вас лучшее решение и&nbsp;Ваше заведение заиграет новыми красками привлекая к&nbsp;себе все больше посетителей
+			.d-lg-none 
+				+pic("picture-4.png")
+		block
 	// end sContact
+	

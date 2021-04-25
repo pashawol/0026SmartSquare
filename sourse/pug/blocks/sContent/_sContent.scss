@@ -1,6 +1,18 @@
 
 	// start .sContent
 	.sContent {
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		&__text{
+			position: relative;
+		}
+		picture{
+			position: relative;
+		}
 		 
 	@include media-breakpoint-up(xl) {}
 	@include media-breakpoint-up(lg) {}

@@ -1,15 +1,22 @@
 :root {
 	--animate-delay: 1.2s;
-	--fontSizeBase: #{$em-base};
-	@include media-breakpoint-up(md) {
-
-		--sPT: #{rem(80)};
-		--sPB: #{rem(90)};
-		--sTPB: #{rem(40)};
+	@include media-breakpoint-up(xxxl) {
+		--fontSizeBase: #{$em-base};
+	}
+	
+	@include media-breakpoint-up(lg) {
+		--fontSizeBase: 18px;
 	}
 
-	--sPT: #{rem(80 / 2)};
-	--sPB: #{rem(90 / 2)};
+ 
+
+	@include media-breakpoint-up(lg) {
+
+		--sPT: calc( #{rem(70)} + 4vh);
+		--sPB: #{rem(114)};
+	}
+	--sPT: calc( #{rem(40)} + 4vh);
+	--sPB: #{rem(64)};
 	--sTPB: #{rem(40 / 2)};
 
 
@@ -24,7 +31,11 @@
 		--swiperBgDefHover: #ffffff;
 
 
-	 
+	--title-w: #{rem(770)};
+	@include media-breakpoint-up(xxxl) {
+		--x1:#{rem(254)};
+	}
+	--x1:#{rem(0)};
 }
 
 @include media-breakpoint-up(xl) {}

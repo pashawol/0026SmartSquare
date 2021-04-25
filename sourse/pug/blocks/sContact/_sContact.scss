@@ -1,9 +1,54 @@
 
 	// start .sContact
 	.sContact {
+			@include media-breakpoint-up(lg) {
+
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: translateX(-100%);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				z-index: 10;
+			}
+		&__inner{
+			max-width: rem(840);
+		}
+		&__title{
+			// @include rfs(80px);
+			font-size: rem(80);
+			font-weight: bold;
+			line-height: 1;
+			position: relative;
+			z-index: 1000;
+			margin-bottom: em(10);
+			a{
+				border-bottom: em(1) solid ;
+				&:hover{
+					border-color: transparent;
+				}
+			}
+		}
+		&__tel{
+			display: inline-block;
+			margin-bottom: em(10);
+			font-size: rem(60);
+			font-weight: bold;
+			color: #6F6F6F !important;
+		}
+		p{
+			@include rfs(24px);
+			max-width: rem(620);
+
+		}
 		 
 	@include media-breakpoint-up(xl) {}
-	@include media-breakpoint-up(lg) {}
+	@include media-breakpoint-up(lg) {
+		.picture--5{
+			position: absolute;
+		}
+	}
 	@include media-breakpoint-up(md) {}
 	@include media-breakpoint-up(sm) {}
 	@include media-breakpoint-up(xs) {}
@@ -27,3 +72,49 @@
 	@include media-breakpoint-down(xs) {} 
 
 } // end.sContact
+
+.form-modal{
+	.toggle-form{
+		position: absolute;
+		@include media-breakpoint-up(sm) {
+			right: rem(112);
+			top: rem(130);
+		}
+		right: 15px;
+		top: rem(30) ;
+		
+	}
+	@include mt(.6s);
+	transform: translateX(-100%);
+	left: 0;
+	&.active{
+		transform: translateX(0);
+		// tra
+	}
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 2000;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-color: $primary;
+		@include media-breakpoint-up(sm) {
+			padding: rem(130) rem(112);
+		}
+		padding: rem(30) 15px; 
+	max-width: rem(1100);
+	.h1{
+		color: #fff;
+		margin-bottom: em(20);
+			@include media-breakpoint-up(xxxl) {
+				font-size: 80px;
+				// @include rfs(80px);
+			}
+	}
+	form{
+		max-width: rem(544);
+	}
+}
+ 

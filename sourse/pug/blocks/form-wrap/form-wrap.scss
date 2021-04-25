@@ -1,16 +1,49 @@
 .form-wrap{
  	&__input-wrap{
 			// @extend .form-group;
-			
+			margin-bottom: rem(20);
 		}
 		&__input{
 			// @extend .form-control;
 		//  outline: 0 !important;
 		 resize: none;
+		 border-top: none;
+		 border-left: none;
+		 border-right: none;
  	}
  	&__btn{
  		cursor: pointer;
+		 @extend .btn;
+		 border-radius: 50%;
+		 width: rem(128);
+		 height: rem(128);
+		 background-color: #23F8AB;
+		 border: 1px solid #23F8AB;
+		 @include mt;
+		 color: $body-color;
+		 &:hover{
+			 background-color: #57f5bb;
+			 border: 1px solid #57f5bb;
+			//  background-color: rgba($color: #fff, $alpha: 1.0);
+
+		 }
+		 .icon{
+			 font-size: rem(32);
+			 fill:transparent;
+			 stroke: currentColor;
+			 stroke-width: 5px;
+
+		 }
  	}
+	 &__policy{
+		 color: #fff;
+		 font-size: 14px;
+		 font-weight: 500;
+		 max-width: 240px;
+	 }
+	 .row{
+		 align-items: center;
+	 }
  	label{
  		width: 100%;
  		display: block;

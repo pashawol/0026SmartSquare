@@ -1,19 +1,44 @@
 // start .headerBlock
 .headerBlock {
-	margin-bottom: 1px;
-	min-height: 100vh;
-	min-height: calc(var(--vh, 1vh) * 100);
-	// background-image: url(../img);
-	// background-color: #000000;
+	.container{
 
-	h1 {
-		margin-bottom: 1px;
+		display: flex;
+		flex-direction: column;
+		// align-items: center;
+		justify-content: center;
+		position: relative;
+	}
+	.section-title{
+		max-width: var(--title-w);
+		position: relative;
+		z-index: 4;
+	}
+	h1,.h1{
+		font-weight: 700;
+		line-height: (94 / 80);
+		margin: 0;
+	}
+	.h1{
+		color: $primary;
+		position: relative;
+		
 	}
 
-	h2 {
-		margin-bottom: 1px;
-	}
+	&__text{
+		@include media-breakpoint-up(md) {
 
+			
+			position: absolute;
+			bottom: calc(var(--sPB) );
+			left: calc( var(--title-w) + var(--x1) - #{rem(40 + 254)});
+			max-width: rem(270);
+		}
+		max-width: rem(470);
+		font-style: italic;
+		padding-bottom: 1rem;
+	
+	}
+ 
 	@include media-breakpoint-up(xl) {}
 
 	@include media-breakpoint-up(lg) {}
@@ -53,3 +78,69 @@
 }
 
 // end.headerBlock
+
+.picture-block{
+	--w: #{rem(328)};
+	
+	left: calc( var(--title-w) + var(--x1) + var(--x));
+	top: var(--y);
+	width: var(--w);
+	height: var(--w);
+	position: absolute;
+
+	picture,
+	img{
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	// height: --w;
+	&--1{
+		--x: #{rem(400 - 254)}; 
+		--y: var(--sPT); 
+		// --h: #{rem(128)};
+	}
+	
+	&--2{
+		--x: #{rem(542 - 254)};
+		--y: calc(var(--sPT) + #{rem(136)});
+		--w: #{rem(402)};
+		z-index: 2;
+		// --h: #{rem(128)};
+	}
+	&--3{
+		--x: #{rem(542 - 254)};
+		--y: calc(var(--sPT) + 60%);
+		// --w: #{rem(402)};
+		// --h: #{rem(128)};
+	}
+	&--4{
+		--x: #{rem(253 - 354)};
+		--y: calc(var(--sPT) + 22%);
+		z-index: 10;
+		@include media-breakpoint-up(lg) {
+			
+			--w: #{rem(690)};
+			transform: scale(.66);
+				max-width: 50vw;
+			}
+			max-width: 100%;
+			--w: 100%;
+			@include media-breakpoint-down(lg) {
+			position: static !important;
+			// max-width: 100%;
+		}
+		// --h: #{rem(128)};
+	}
+
+}
+
+.text{
+		&--2,
+		&--3{
+			position: absolute;
+			left: 0;
+			top: 0;
+			opacity: 0;
+		}
+}

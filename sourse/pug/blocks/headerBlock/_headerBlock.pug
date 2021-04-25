@@ -1,10 +1,21 @@
 mixin headerBlock()
 	// start headerBlock
-	+b.headerBlock.section#headerBlock&attributes(attributes)
-		.container
-			+b.section-title.text-center
-				h2 headerBlock ds dfsdfdsfsd
-
-			.row
-						
+	+b.headerBlock#headerBlock&attributes(attributes)
+		.container.section
+			+e.block
+				+b.section-title
+					h1 Яркое оформление входных зон
+					.h1
+						+b.text--1 ресторанов
+						+b.text--2 кафе
+						+b.text--3 магазинов
+				+e.text Привет! Я, #[span.text-primary Ася Борзова] и мы вместе со своей командой разрабатываем проекты озеленения и подбор растений, высадку и уход за ними.
+			+b.picture-block--1
+				+pic("picture-1.png")
+			+b.picture-block--2
+				+pic("picture-2.png")
+			+b.picture-block--3
+				+pic("picture-3.png")
+			+b.picture-block--4
+				+pic("picture-4.png")
 	// end headerBlock

@@ -13,68 +13,10 @@ const JSCCommon = {
 
 	btnToggleMenuMobile: [].slice.call(document.querySelectorAll(".toggle-menu-mobile--js")),
 	menuMobile: document.querySelector(".menu-mobile--js"),
+	btnToggleForm: [].slice.call(document.querySelectorAll(" .toggle-form--js")),
+	form: document.querySelector(".form-modal"),
 	menuMobileLink: [].slice.call(document.querySelectorAll(".menu-mobile--js ul li a")),
-
-	modalCall() {
-		const link = ".link-modal-js";
-		$(link).fancybox({
-			arrows: false,
-			infobar: false,
-			touch: false,
-			type: 'inline',
-			autoFocus: false,
-			i18n: {
-				en: {
-					CLOSE: "Закрыть",
-					NEXT: "Вперед",
-					PREV: "Назад",
-					// PLAY_START: "Start slideshow",
-					// PLAY_STOP: "Pause slideshow",
-					// FULL_SCREEN: "Full screen",
-					// THUMBS: "Thumbnails",
-					// DOWNLOAD: "Download",
-					// SHARE: "Share",
-					// ZOOM: "Zoom"
-				},
-			},
-			beforeLoad: function () {
-				if (!document.querySelector("html").classList.contains(".fixed")) document.querySelector("html").style.marginRight = scrollWidth + 'px';
-			},
-			afterClose: function () {
-				if (!document.querySelector("html").classList.contains(".fixed")) document.querySelector("html").style.marginRight = null;
-				// 	document.querySelector("html").classList.remove("fixed")
-			},
-		});
-		$(".modal-close-js").click(function () {
-			$.fancybox.close();
-		})
-		$.fancybox.defaults.backFocus = false;
-		const linkModal = document.querySelectorAll(link);
-		function addData() {
-			linkModal.forEach(element => {
-				element.addEventListener('click', () => {
-					let modal = document.querySelector(element.getAttribute("href"));
-					const data = element.dataset;
-
-					function setValue(val, elem) {
-						if (elem && val) {
-							const el = modal.querySelector(elem)
-							el.tagName == "INPUT"
-								? el.value = val
-								: el.innerHTML = val;
-							// console.log(modal.querySelector(elem).tagName)
-						}
-					}
-					setValue(data.title, '.ttu');
-					setValue(data.text, '.after-headline');
-					setValue(data.btn, '.btn');
-					setValue(data.order, '.order');
-				})
-			})
-		}
-		if (linkModal) addData();
-	},
-	// /modalCall
+ 
 	toggleMenu() {
 		const toggle = this.btnToggleMenuMobile;
 		const menu = this.menuMobile;
@@ -112,60 +54,29 @@ const JSCCommon = {
 		}, { passive: true });
 	},
 	// /mobileMenu
-
-	// tabs  .
-	tabscostume(tab) {
-		const tabs = document.querySelectorAll(tab);
-		// const indexOf = element => Array.from(element.parentNode.children).indexOf(element);
-		tabs.forEach(element => {
-			let tabs = element;
-			const tabsCaption = tabs.querySelector(".tabs__caption");
-			const tabsBtn = tabsCaption.querySelectorAll(".tabs__btn");
-			const tabsWrap = tabs.querySelector(".tabs__wrap");
-			const tabsContent = tabsWrap.querySelectorAll(".tabs__content");
-			const random = Math.trunc(Math.random() * 1000);
-			tabsBtn.forEach((el, index) => {
-				const data = `tab-content-${random}-${index}`;
-				el.dataset.tabBtn = data;
-				const content = tabsContent[index];
-				content.dataset.tabContent = data;
-				if (!content.dataset.tabContent == data) return;
-
-				const active = content.classList.contains('active') ? 'active' : '';
-				// console.log(el.innerHTML);
-				content.insertAdjacentHTML("beforebegin", `<div class="tabs__btn-accordion  btn btn-primary  mb-1 ${active}" data-tab-btn="${data}">${el.innerHTML}</div>`)
-			})
-
-
-			tabs.addEventListener('click', function (element) {
-				const btn = element.target.closest(`[data-tab-btn]:not(.active)`);
-				if (!btn) return;
-				const data = btn.dataset.tabBtn;
-				const tabsAllBtn = this.querySelectorAll(`[data-tab-btn`);
-				const content = this.querySelectorAll(`[data-tab-content]`);
-				tabsAllBtn.forEach(element => {
-					element.dataset.tabBtn == data
-						? element.classList.add('active')
-						: element.classList.remove('active')
-				});
-				content.forEach(element => {
-					element.dataset.tabContent == data
-						? (element.classList.add('active'), element.previousSibling.classList.add('active'))
-						: element.classList.remove('active')
-				});
-			})
-		})
-
-		// $('.' + tab + '__caption').on('click', '.' + tab + '__btn:not(.active)', function (e) {
-		// 	$(this)
-		// 		.addClass('active').siblings().removeClass('active')
-		// 		.closest('.' + tab).find('.' + tab + '__content').hide().removeClass('active')
-		// 		.eq($(this).index()).fadeIn().addClass('active');
-
-		// });
+ 
+ 
+	closeForm() {
+		let menu = this.form;
+		if (!menu) return;
+		if (menu.classList.contains("active")) {
+			// this.btnToggleMenuMobile.forEach(element => element.classList.remove("on"));
+			this.form.classList.remove("active");
+			[document.body, document.querySelector('html')].forEach(el => el.classList.remove("fixedd"));
+			document.querySelector("html").style.marginRight = null
+		}
 
 	},
-	// /tabs
+	mobileForm() {
+		if (!this.menuMobileLink) return; 
+		document.addEventListener('mouseup', (event) => {
+			let container = event.target.closest(".form-modal.active");  
+			if (!container) this.closeForm();
+		}, { passive: true });
+		$(".toggle-form--js").click(() =>this.closeForm())
+ 
+	},
+	// /mobileMenu
 
 	inputMask() {
 		// mask for input
@@ -173,13 +84,7 @@ const JSCCommon = {
 		InputTel.forEach(element => element.setAttribute("pattern", "[+][0-9]{1}[(][0-9]{3}[)][0-9]{3}-[0-9]{2}-[0-9]{2}"));
 		Inputmask("+9(999)999-99-99").mask(InputTel);
 	},
-	// /inputMask
-	ifie() {
-		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-		if (isIE11) {
-			document.body.insertAdjacentHTML("beforeend", '<div class="browsehappy">	<p class=" container">К сожалению, вы используете устаревший браузер. Пожалуйста, <a href="http://browsehappy.com/" target="_blank">обновите ваш браузер</a>, чтобы улучшить производительность, качество отображаемого материала и повысить безопасность.</p></div>');
-		}
-	},
+
 	sendForm() {
 		var gets = (function () {
 			var a = window.location.search;
@@ -254,85 +159,119 @@ const JSCCommon = {
 		if (currentYear) currentYear.innerText = now.getFullYear();
 	}
 };
-const $ = jQuery;
+// const $ = jQuery;
 
-function eventHandler() {
-	JSCCommon.ifie();
-	JSCCommon.modalCall();
-	JSCCommon.tabscostume('.tabs--js');
+function eventHandler() { 
 	JSCCommon.mobileMenu();
-	JSCCommon.inputMask();
+	// JSCCommon.inputMask();
 	JSCCommon.sendForm();
+	JSCCommon.mobileForm();
 	JSCCommon.heightwindow();
 	JSCCommon.animateScroll();
+	JSCCommon.getCurrentYear('.current-year');
+  
+	$(".toggle-form-text").click(function(e){
+		e.preventDefault();
+		$(".form-modal").addClass("active")
+		$("body").addClass("fixedd")
+	})
 
-	// JSCCommon.CustomInputFile(); 
-	var x = window.location.host;
-	let screenName;
-	screenName = document.body.dataset.bg;
-	if (screenName && x.includes("localhost:30")) {
-		document.body.insertAdjacentHTML("beforeend", `<div class="pixel-perfect" style="background-image: url(screen/${screenName});"></div>`);
+	
+	
+	if (window.matchMedia("(min-width: 992px)").matches) {
+	var controller = new ScrollMagic.Controller();
+
+
+	let height = window.innerHeight;
+
+
+	var tween = new TimelineMax()
+		.add([
+			TweenMax.to(".picture-block--1", 1000, {x:-200,  y: -400, rotation:  -30, duration: 500,   ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--2", 1000, { x: 200, y: -200, rotation:  30, duration: 500,   ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--3", 1000, { x: 200, y: 100, rotation:  30, duration: 500,   ease: Power1.easeInOut}),
+			TweenMax.to(".text--1", 500, { opacity:0, duration: 200,   ease: Power1.easeInOut}),
+			TweenMax.to(".text--2", 500, { opacity:1, duration: 200,   ease: Power1.easeInOut}),
+		]) 
+		.add([
+			TweenMax.to(".picture-block--4", 1000, {  scale: .8, duration: 500,   ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--1", 1000, { x:-200,   y: -600, rotation:  -60, duration: 150,   ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--2", 1000, { x:200,   y: -800, rotation:  60, duration: 150,   ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--3", 1000, {x: 500,  y: 100, rotation:  60, duration: 150,   ease: Power1.easeInOut}),
+			TweenMax.to(".text--2", 500, { opacity:0, duration: 100,   ease: Power1.easeInOut}),
+			TweenMax.to(".text--3", 500, { opacity:1, duration: 100,   ease: Power1.easeInOut}),
+		])
+		.add([
+			TweenMax.to(".picture-block--4", 3000, { scale: 1, left: -100, top: '14%', duration: 450, ease: "slow(0.5, 0.8, true)"}),
+			TweenMax.to(".headerBlock__block", 1000, {opacity:0, duration: 50, ease: Power1.easeIn }),
+			TweenMax.from(".sAbout", 2000, {y: '50%', opacity:0, duration: 250, ease: Power1.easeInOut }),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		])
+		.add([
+			TweenMax.to(".picture-block--4", 2000, { x: '-50%', duration: 150, ease: Power1.easeInOut}),
+			TweenMax.to(".sAbout", 2000, {y: '-50%', opacity: .5, duration: 250, ease: Power1.easeInOut }),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		])
+		.add([
+			TweenMax.to(".picture-block--4", 1000, { x: '-150%', rotation: -60, duration: 150, ease: Power1.easeInOut}),
+			TweenMax.to(".sAbout", 2000, {y: '-200%', opacity: 0, duration: 50, ease: Power1.easeInOut }),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+			TweenMax.from(".sContent__text", 2500, { y: '200%', opacity: 0, delay: 100,  duration:450, ease: Power1.easeInOut}),
+			TweenMax.from(".content-picture", 2000, { y: '-10%', opacity: 0, delay: 100,  duration: 550, ease: Power2.easeInOut }),
+		])
+		// .add([
+		// 	// TweenMax.to(".picture-block--4", 1000, { x: '-200%', rotation: -60, delay: -100,  duration: 1500, ease: Power1.easeInOut }),
+		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		// ])
+		.add([
+			TweenMax.to(".sContent", 3000, { x: '-100%',  duration: 150, ease: Power1.easeInOut}),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+			TweenMax.from(".sWays", 4000, { y: '100%',  duration: 250, ease: Power3.easeInOut}),
+		])
+		.add([
+			TweenMax.to(".sWays", 3000, { y: '-100%', opacity: .8,  duration: 450, ease: Power1.easeInOut}),
+			TweenMax.to(".sCompositions", 4500, { opacity: 1, delay: -100,   duration: 350, ease: Power1.easeInOut}),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		])
+		.add([
+			TweenMax.to(".sCompositions", 3000, { y: '-90%',  delay: -500, duration: 350, ease: Power1.easeInOut }),
+		])
+		.add([
+			TweenMax.to(".sCompositions", 1000, { y: '-100%', opacity: 0,   duration: 150, ease: Power1.easeInOut }),
+			TweenMax.from(".sServises", 2000, { y: '100%',  delay: -1500, duration: 750, ease: Power1.easeInOut }),
+			TweenMax.to(".picture-block--4", 1000, { rotation: 0,  duration: 150, ease: Power2.easeInOut }),
+		])
+		.add([
+			TweenMax.to(".picture-block--4", 3000, { x: '10%',  duration: 150, ease: Power2.easeInOut }),
+			TweenMax.to(".sServises", 2000, { x: '50%', duration: 70, ease: Power1.easeInOut }),
+		])
+		.add([
+			TweenMax.to(".picture-block--4", 3000, { x: '10%',  duration: 50, ease: Power2.easeInOut }),
+			TweenMax.to(".sServises", 2000, { x: '50%', l: 0,   duration: 70, ease: Power1.easeInOut }),
+		])
+		.add([
+			TweenMax.to(".sContact", 2000, { x: '0', l:0,  duration: 50, delay: -1000, ease: Power2.easeInOut }),
+			TweenMax.to(".picture-block--4", 2000, { x: '-80%', left: '100%',  duration: 0, delay: -1000, ease: Power2.easeInOut }),
+			TweenMax.to(".sServises", 2000, { x: '100%', duration: 0, delay: -1000, ease: Power1.easeInOut }),
+		])
+		// .add([
+		// 	TweenMax.to(".picture-block--4", 1000, {
+		// 		x: '-50%', rotation: -60, duration: 1500, ease: SteppedEase.config(12),  }),
+		// 	TweenMax.to(".sAbout", 2000, {y: '-100%', opacity: .5, duration: 3500, ease: Power1.easeInOut }),
+		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		// ])
+	
+		
+	// build scene
+
+
+		new ScrollMagic
+		.Scene({ triggerElement: ".main-wrapper", triggerHook: "onLeave", duration: '1500%', offset: '0%' })
+		.setTween(tween)
+		.setPin(".main-wrapper")
+		// .addIndicators() // add indicators (requires plugin)
+		.addTo(controller);
 	}
-
-
-	function setFixedNav() {
-		let topNav = document.querySelector('.top-nav  ');
-		if (!topNav) return;
-		window.scrollY > 0
-			? topNav.classList.add('fixed')
-			: topNav.classList.remove('fixed');
-	}
-
-	function whenResize() {
-		setFixedNav();
-	}
-
-	window.addEventListener('scroll', () => {
-		setFixedNav();
-
-	}, { passive: true })
-	window.addEventListener('resize', () => {
-		whenResize();
-	}, { passive: true });
-
-	whenResize();
-
-
-	let defaultSl = {
-		spaceBetween: 0,
-		lazy: {
-			loadPrevNext: true,
-		},
-		watchOverflow: true,
-		spaceBetween: 0,
-		loop: true,
-		navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev',
-		},
-		pagination: {
-			el: ' .swiper-pagination',
-			type: 'bullets',
-			clickable: true,
-			// renderBullet: function (index, className) {
-			// 	return '<span class="' + className + '">' + (index + 1) + '</span>';
-			// }
-		},
-	}
-
-	const swiper4 = new Swiper('.sBanners__slider--js', {
-		// slidesPerView: 5,
-		...defaultSl,
-		slidesPerView: 'auto',
-		freeMode: true,
-		loopFillGroupWithBlank: true,
-		touchRatio: 0.2,
-		slideToClickedSlide: true,
-		freeModeMomentum: true,
-
-	});
-	// modal window
-
 };
 if (document.readyState !== 'loading') {
 	eventHandler();

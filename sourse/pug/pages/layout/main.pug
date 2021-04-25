@@ -33,10 +33,27 @@ html(lang="ru")
 	//- 	.loaded_hiding {  opacity: 0; pointer-events: none;  } .loaded_hiding::before { display: none; }
 	//- body.loaded_hiding(class= mainPage) 
 	body(class= mainPage data-bg= bg)
+		//- +mob-mnu()
 		.main-wrapper
 			block pagecontent
 				h3 content
 		+modal()
+		+b.form-modal
+			+b.toggle-form--js.on
+				span
+			.h1.strong Чтобы вы хотели?
+
+			+form-wrap
+				+input("Ваше имя",'text','','name')(required)
+				+input("Ваш телефон",'tel')(required)
+				+input("Ваш e-mail",'email')
+				+input("Опишите вашу задачу",'textarea','','text')
+				.row.pt-2 
+					.col-auto
+						+e.btn(type="submit")
+							+icon("arrow-right")
+					.col
+						+e.policy Отправляя данные я соглашаюсь с условиями обработки персональных данных
 		+allcjs()
 		
 		

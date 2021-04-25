@@ -1,11 +1,5 @@
 "use strict";
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var div = document.createElement('div');
 div.style.overflowY = 'scroll';
 div.style.width = '50px';
@@ -17,65 +11,9 @@ div.remove();
 var JSCCommon = {
 	btnToggleMenuMobile: [].slice.call(document.querySelectorAll(".toggle-menu-mobile--js")),
 	menuMobile: document.querySelector(".menu-mobile--js"),
+	btnToggleForm: [].slice.call(document.querySelectorAll(" .toggle-form--js")),
+	form: document.querySelector(".form-modal"),
 	menuMobileLink: [].slice.call(document.querySelectorAll(".menu-mobile--js ul li a")),
-	modalCall: function modalCall() {
-		$(".link-modal-js").fancybox({
-			arrows: false,
-			infobar: false,
-			touch: false,
-			type: 'inline',
-			autoFocus: false,
-			i18n: {
-				en: {
-					CLOSE: "Закрыть",
-					NEXT: "Вперед",
-					PREV: "Назад" // PLAY_START: "Start slideshow",
-					// PLAY_STOP: "Pause slideshow",
-					// FULL_SCREEN: "Full screen",
-					// THUMBS: "Thumbnails",
-					// DOWNLOAD: "Download",
-					// SHARE: "Share",
-					// ZOOM: "Zoom"
-
-				}
-			},
-			beforeLoad: function beforeLoad() {
-				if (!document.querySelector("html").classList.contains(".fixed")) document.querySelector("html").style.marginRight = scrollWidth + 'px';
-			},
-			afterClose: function afterClose() {
-				if (!document.querySelector("html").classList.contains(".fixed")) document.querySelector("html").style.marginRight = null; // 	document.querySelector("html").classList.remove("fixed")
-			}
-		});
-		$(".modal-close-js").click(function () {
-			$.fancybox.close();
-		});
-		$.fancybox.defaults.backFocus = false;
-		var linkModal = document.querySelectorAll('.link-modal');
-
-		function addData() {
-			linkModal.forEach(function (element) {
-				element.addEventListener('click', function () {
-					var modal = document.querySelector(element.getAttribute("href"));
-					var data = element.dataset;
-
-					function setValue(val, elem) {
-						if (elem && val) {
-							var el = modal.querySelector(elem);
-							el.tagName == "INPUT" ? el.value = val : el.innerHTML = val; // console.log(modal.querySelector(elem).tagName)
-						}
-					}
-
-					setValue(data.title, '.ttu');
-					setValue(data.text, '.after-headline');
-					setValue(data.btn, '.btn');
-					setValue(data.order, '.order');
-				});
-			});
-		}
-
-		if (linkModal) addData();
-	},
-	// /modalCall
 	toggleMenu: function toggleMenu() {
 		var toggle = this.btnToggleMenuMobile;
 		var menu = this.menuMobile;
@@ -130,48 +68,34 @@ var JSCCommon = {
 		});
 	},
 	// /mobileMenu
-	// tabs  .
-	tabscostume: function tabscostume(tab) {
-		var tabs = document.querySelectorAll(tab); // const indexOf = element => Array.from(element.parentNode.children).indexOf(element);
+	closeForm: function closeForm() {
+		var menu = this.form;
+		if (!menu) return;
 
-		tabs.forEach(function (element) {
-			var tabs = element;
-			var tabsCaption = tabs.querySelector(".tabs__caption");
-			var tabsBtn = tabsCaption.querySelectorAll(".tabs__btn");
-			var tabsWrap = tabs.querySelector(".tabs__wrap");
-			var tabsContent = tabsWrap.querySelectorAll(".tabs__content");
-			var random = Math.trunc(Math.random() * 1000);
-			tabsBtn.forEach(function (el, index) {
-				var data = "tab-content-".concat(random, "-").concat(index);
-				el.dataset.tabBtn = data;
-				var content = tabsContent[index];
-				content.dataset.tabContent = data;
-				if (!content.dataset.tabContent == data) return;
-				var active = content.classList.contains('active') ? 'active' : ''; // console.log(el.innerHTML);
-
-				content.insertAdjacentHTML("beforebegin", "<div class=\"tabs__btn-accordion  btn btn-primary  mb-1 ".concat(active, "\" data-tab-btn=\"").concat(data, "\">").concat(el.innerHTML, "</div>"));
+		if (menu.classList.contains("active")) {
+			// this.btnToggleMenuMobile.forEach(element => element.classList.remove("on"));
+			this.form.classList.remove("active");
+			[document.body, document.querySelector('html')].forEach(function (el) {
+				return el.classList.remove("fixedd");
 			});
-			tabs.addEventListener('click', function (element) {
-				var btn = element.target.closest("[data-tab-btn]:not(.active)");
-				if (!btn) return;
-				var data = btn.dataset.tabBtn;
-				var tabsAllBtn = this.querySelectorAll("[data-tab-btn");
-				var content = this.querySelectorAll("[data-tab-content]");
-				tabsAllBtn.forEach(function (element) {
-					element.dataset.tabBtn == data ? element.classList.add('active') : element.classList.remove('active');
-				});
-				content.forEach(function (element) {
-					element.dataset.tabContent == data ? (element.classList.add('active'), element.previousSibling.classList.add('active')) : element.classList.remove('active');
-				});
-			});
-		}); // $('.' + tab + '__caption').on('click', '.' + tab + '__btn:not(.active)', function (e) {
-		// 	$(this)
-		// 		.addClass('active').siblings().removeClass('active')
-		// 		.closest('.' + tab).find('.' + tab + '__content').hide().removeClass('active')
-		// 		.eq($(this).index()).fadeIn().addClass('active');
-		// });
+			document.querySelector("html").style.marginRight = null;
+		}
 	},
-	// /tabs
+	mobileForm: function mobileForm() {
+		var _this2 = this;
+
+		if (!this.menuMobileLink) return;
+		document.addEventListener('mouseup', function (event) {
+			var container = event.target.closest(".form-modal.active");
+			if (!container) _this2.closeForm();
+		}, {
+			passive: true
+		});
+		$(".toggle-form--js").click(function () {
+			return _this2.closeForm();
+		});
+	},
+	// /mobileMenu
 	inputMask: function inputMask() {
 		// mask for input
 		var InputTel = [].slice.call(document.querySelectorAll('input[type="tel"]'));
@@ -179,14 +103,6 @@ var JSCCommon = {
 			return element.setAttribute("pattern", "[+][0-9]{1}[(][0-9]{3}[)][0-9]{3}-[0-9]{2}-[0-9]{2}");
 		});
 		Inputmask("+9(999)999-99-99").mask(InputTel);
-	},
-	// /inputMask
-	ifie: function ifie() {
-		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-
-		if (isIE11) {
-			document.body.insertAdjacentHTML("beforeend", '<div class="browsehappy">	<p class=" container">К сожалению, вы используете устаревший браузер. Пожалуйста, <a href="http://browsehappy.com/" target="_blank">обновите ваш браузер</a>, чтобы улучшить производительность, качество отображаемого материала и повысить безопасность.</p></div>');
-		}
 	},
 	sendForm: function sendForm() {
 		var gets = function () {
@@ -261,75 +177,223 @@ var JSCCommon = {
 		var currentYear = document.querySelector(el);
 		if (currentYear) currentYear.innerText = now.getFullYear();
 	}
-};
-var $ = jQuery;
+}; // const $ = jQuery;
 
 function eventHandler() {
-	var _defaultSl;
+	JSCCommon.mobileMenu(); // JSCCommon.inputMask();
 
-	JSCCommon.ifie();
-	JSCCommon.modalCall();
-	JSCCommon.tabscostume('.tabs--js');
-	JSCCommon.mobileMenu();
-	JSCCommon.inputMask();
 	JSCCommon.sendForm();
+	JSCCommon.mobileForm();
 	JSCCommon.heightwindow();
-	JSCCommon.animateScroll(); // JSCCommon.CustomInputFile(); 
-
-	var x = window.location.host;
-	var screenName;
-	screenName = document.body.dataset.bg;
-
-	if (screenName && x.includes("localhost:30")) {
-		document.body.insertAdjacentHTML("beforeend", "<div class=\"pixel-perfect\" style=\"background-image: url(screen/".concat(screenName, ");\"></div>"));
-	}
-
-	function setFixedNav() {
-		var topNav = document.querySelector('.top-nav  ');
-		if (!topNav) return;
-		window.scrollY > 0 ? topNav.classList.add('fixed') : topNav.classList.remove('fixed');
-	}
-
-	function whenResize() {
-		setFixedNav();
-	}
-
-	window.addEventListener('scroll', function () {
-		setFixedNav();
-	}, {
-		passive: true
+	JSCCommon.animateScroll();
+	JSCCommon.getCurrentYear('.current-year');
+	$(".toggle-form-text").click(function (e) {
+		e.preventDefault();
+		$(".form-modal").addClass("active");
+		$("body").addClass("fixedd");
 	});
-	window.addEventListener('resize', function () {
-		whenResize();
-	}, {
-		passive: true
-	});
-	whenResize();
-	var defaultSl = (_defaultSl = {
-		spaceBetween: 0,
-		lazy: {
-			loadPrevNext: true
-		},
-		watchOverflow: true
-	}, _defineProperty(_defaultSl, "spaceBetween", 0), _defineProperty(_defaultSl, "loop", true), _defineProperty(_defaultSl, "navigation", {
-		nextEl: '.swiper-button-next',
-		prevEl: '.swiper-button-prev'
-	}), _defineProperty(_defaultSl, "pagination", {
-		el: ' .swiper-pagination',
-		type: 'bullets',
-		clickable: true // renderBullet: function (index, className) {
-		// 	return '<span class="' + className + '">' + (index + 1) + '</span>';
-		// }
 
-	}), _defaultSl);
-	var swiper4 = new Swiper('.sBanners__slider--js', _objectSpread(_objectSpread({}, defaultSl), {}, {
-		slidesPerView: 'auto',
-		freeMode: true,
-		loopFillGroupWithBlank: true,
-		touchRatio: 0.2,
-		slideToClickedSlide: true,
-		freeModeMomentum: true
-	})); // modal window
+	if (window.matchMedia("(min-width: 992px)").matches) {
+		var controller = new ScrollMagic.Controller();
+		var height = window.innerHeight;
+		var tween = new TimelineMax().add([TweenMax.to(".picture-block--1", 1000, {
+			x: -200,
+			y: -400,
+			rotation: -30,
+			duration: 500,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".picture-block--2", 1000, {
+			x: 200,
+			y: -200,
+			rotation: 30,
+			duration: 500,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".picture-block--3", 1000, {
+			x: 200,
+			y: 100,
+			rotation: 30,
+			duration: 500,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".text--1", 500, {
+			opacity: 0,
+			duration: 200,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".text--2", 500, {
+			opacity: 1,
+			duration: 200,
+			ease: Power1.easeInOut
+		})]).add([TweenMax.to(".picture-block--4", 1000, {
+			scale: .8,
+			duration: 500,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".picture-block--1", 1000, {
+			x: -200,
+			y: -600,
+			rotation: -60,
+			duration: 150,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".picture-block--2", 1000, {
+			x: 200,
+			y: -800,
+			rotation: 60,
+			duration: 150,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".picture-block--3", 1000, {
+			x: 500,
+			y: 100,
+			rotation: 60,
+			duration: 150,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".text--2", 500, {
+			opacity: 0,
+			duration: 100,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".text--3", 500, {
+			opacity: 1,
+			duration: 100,
+			ease: Power1.easeInOut
+		})]).add([TweenMax.to(".picture-block--4", 3000, {
+			scale: 1,
+			left: -100,
+			top: '14%',
+			duration: 450,
+			ease: "slow(0.5, 0.8, true)"
+		}), TweenMax.to(".headerBlock__block", 1000, {
+			opacity: 0,
+			duration: 50,
+			ease: Power1.easeIn
+		}), TweenMax.from(".sAbout", 2000, {
+			y: '50%',
+			opacity: 0,
+			duration: 250,
+			ease: Power1.easeInOut
+		}) // TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		]).add([TweenMax.to(".picture-block--4", 2000, {
+			x: '-50%',
+			duration: 150,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".sAbout", 2000, {
+			y: '-50%',
+			opacity: .5,
+			duration: 250,
+			ease: Power1.easeInOut
+		}) // TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		]).add([TweenMax.to(".picture-block--4", 1000, {
+			x: '-150%',
+			rotation: -60,
+			duration: 150,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".sAbout", 2000, {
+			y: '-200%',
+			opacity: 0,
+			duration: 50,
+			ease: Power1.easeInOut
+		}), // TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		TweenMax.from(".sContent__text", 2500, {
+			y: '200%',
+			opacity: 0,
+			delay: 100,
+			duration: 450,
+			ease: Power1.easeInOut
+		}), TweenMax.from(".content-picture", 2000, {
+			y: '-10%',
+			opacity: 0,
+			delay: 100,
+			duration: 550,
+			ease: Power2.easeInOut
+		})]) // .add([
+		// 	// TweenMax.to(".picture-block--4", 1000, { x: '-200%', rotation: -60, delay: -100,  duration: 1500, ease: Power1.easeInOut }),
+		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		// ])
+		.add([TweenMax.to(".sContent", 3000, {
+			x: '-100%',
+			duration: 150,
+			ease: Power1.easeInOut
+		}), // TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		TweenMax.from(".sWays", 4000, {
+			y: '100%',
+			duration: 250,
+			ease: Power3.easeInOut
+		})]).add([TweenMax.to(".sWays", 3000, {
+			y: '-100%',
+			opacity: .8,
+			duration: 450,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".sCompositions", 4500, {
+			opacity: 1,
+			delay: -100,
+			duration: 350,
+			ease: Power1.easeInOut
+		}) // TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		]).add([TweenMax.to(".sCompositions", 3000, {
+			y: '-90%',
+			delay: -500,
+			duration: 350,
+			ease: Power1.easeInOut
+		})]).add([TweenMax.to(".sCompositions", 1000, {
+			y: '-100%',
+			opacity: 0,
+			duration: 150,
+			ease: Power1.easeInOut
+		}), TweenMax.from(".sServises", 2000, {
+			y: '100%',
+			delay: -1500,
+			duration: 750,
+			ease: Power1.easeInOut
+		}), TweenMax.to(".picture-block--4", 1000, {
+			rotation: 0,
+			duration: 150,
+			ease: Power2.easeInOut
+		})]).add([TweenMax.to(".picture-block--4", 3000, {
+			x: '10%',
+			duration: 150,
+			ease: Power2.easeInOut
+		}), TweenMax.to(".sServises", 2000, {
+			x: '50%',
+			duration: 70,
+			ease: Power1.easeInOut
+		})]).add([TweenMax.to(".picture-block--4", 3000, {
+			x: '10%',
+			duration: 50,
+			ease: Power2.easeInOut
+		}), TweenMax.to(".sServises", 2000, {
+			x: '50%',
+			l: 0,
+			duration: 70,
+			ease: Power1.easeInOut
+		})]).add([TweenMax.to(".sContact", 2000, {
+			x: '0',
+			l: 0,
+			duration: 50,
+			delay: -1000,
+			ease: Power2.easeInOut
+		}), TweenMax.to(".picture-block--4", 2000, {
+			x: '-80%',
+			left: '100%',
+			duration: 0,
+			delay: -1000,
+			ease: Power2.easeInOut
+		}), TweenMax.to(".sServises", 2000, {
+			x: '100%',
+			duration: 0,
+			delay: -1000,
+			ease: Power1.easeInOut
+		})]); // .add([
+		// 	TweenMax.to(".picture-block--4", 1000, {
+		// 		x: '-50%', rotation: -60, duration: 1500, ease: SteppedEase.config(12),  }),
+		// 	TweenMax.to(".sAbout", 2000, {y: '-100%', opacity: .5, duration: 3500, ease: Power1.easeInOut }),
+		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		// ])
+		// build scene
+
+		new ScrollMagic.Scene({
+			triggerElement: ".main-wrapper",
+			triggerHook: "onLeave",
+			duration: '1500%',
+			offset: '0%'
+		}).setTween(tween).setPin(".main-wrapper") // .addIndicators() // add indicators (requires plugin)
+		.addTo(controller);
+	}
 }
 
 ;

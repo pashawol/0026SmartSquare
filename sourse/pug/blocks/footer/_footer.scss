@@ -1,6 +1,16 @@
 .footer {
 		
 	margin-top: auto;
+	@include media-breakpoint-up(lg) {
+
+		position: absolute;
+		padding-top: 0;
+	}
+	padding-top: rem(40);
+	// padding: rem(30) 0;
+	left: 0px;
+	bottom: calc(var(--sPB) - 40px);
+	width: 100%;
 
 // 
 @include media-breakpoint-up(xl) {}

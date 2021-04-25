@@ -1,24 +1,26 @@
 .top-nav {
-	position: sticky; 
+	position: fixed; 
 	left: 0;
+	width: 100%;
+
 	// left: 200px;
 	// right: -200px;
 	// margin-right: -200px;
 	top: 0;
 	left: 0;
 	z-index: 800;
-	background-color: #fff;
-	border-bottom: 1px solid #000; 
-	--color-link: 255,
-	0,
-	0;
-	background-color: #{rgba(var(--color-link), .5)};
+
+	padding-top: calc(var(--sPT) - #{rem(50)});
 	&.fixed { 
 		bottom: auto;
 		margin-top: 0;
 	}
 	.row{
-	 
+	align-items: center;
+		
+	}
+	&__logo{
+		margin-right: rem(120);
 	}
 
 	// 
@@ -49,7 +51,11 @@
 	// 
 	@include media-breakpoint-down(xl) {}
 
-	@include media-breakpoint-down(lg) {}
+	@include media-breakpoint-down(lg) {
+		background-color: #fff;
+		padding-top: rem(10);
+		padding-bottom: rem(10);
+	}
 
 	@include media-breakpoint-down(md) {}
 

@@ -1,6 +1,6 @@
 
-$h: em(2);
-
+$h: 4px;
+.toggle-form,
 .toggle-menu-mobile {
 	display: block;
 	height: $h* 12;
@@ -8,6 +8,7 @@ $h: em(2);
 	color: $primary;
 	font-size: 32px;
 	width: 1em;
+	cursor: pointer;
 	&.on {
 		color: #ffffff;
 	}
@@ -46,7 +47,7 @@ $h: em(2);
 		background-color: currentColor;
 		transition: all 0.3s;
 		backface-visibility: hidden;
-		border-radius: 6px;
+		// border-radius: 6px;
 		transform-origin: 50% 50%;
 	}
 
@@ -84,7 +85,7 @@ $h: em(2);
 	top: 0;
 	// left: 0;
 	right: 0;
-	background-color: #c3c3c3;
+	background-color: $primary;
 	&:not(.active){
 		transform: translate3d(120%, 0,0);
 		--opacity: 0;
@@ -146,12 +147,14 @@ $h: em(2);
 		display: block;
 		margin: 0;
 		border-top: 1px solid rgba(255, 255, 255, .13);
+		font-size: 20px;
 
 		a {
 			// font-size: 16px;
 
 			padding: 10px;
 			display: block;
+			color: #fff  !important;
 
 		}
 	}

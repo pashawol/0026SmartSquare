@@ -1,14 +1,20 @@
-.navMenu{
+.menu{
 	display: flex;
 	list-style: none;
-	@include roww(20px);
+	@include roww(78px);
 	position: relative;
 	margin-bottom: 0;
 	max-width: 100%;
 	flex-wrap: wrap;
-	&__link{
+	margin-bottom: 0;
+	font-size: rem(20);
+	a{
 		display: block;
 		text-align: center;
-		padding: rem(20) rem(10);
+		padding: rem(10) rem(0);
+		font-weight: bold;
+		&:not(:hover){
+			color: $body-color;
+		}
 	}
 }
