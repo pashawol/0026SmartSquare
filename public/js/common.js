@@ -394,6 +394,10 @@ function eventHandler() {
 		}).setTween(tween).setPin(".main-wrapper") // .addIndicators() // add indicators (requires plugin)
 		.addTo(controller);
 	}
+
+	window.onload = function () {
+		$("body").removeClass("loaded_hiding");
+	};
 }
 
 ;
