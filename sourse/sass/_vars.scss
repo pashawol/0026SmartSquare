@@ -237,7 +237,7 @@ $enable-shadows: false !default;
 $enable-gradients: false !default;
 $enable-transitions: true !default;
 $enable-reduced-motion: true !default;
-$enable-smooth-scroll: true !default;
+$enable-smooth-scroll: false !default;
 $enable-grid-classes: true !default;
 $enable-button-pointers: true !default;
 $enable-rfs: true !default;
@@ -427,7 +427,7 @@ $aspect-ratios: ("1x1": 100%,
 
 // scss-docs-start font-variables
 // stylelint-disable value-keyword-case
-$font-family-sans-serif: system-ui,
+$font-family-sans-serif: $default-font, system-ui,
 -apple-system,
 "Segoe UI",
 Roboto,

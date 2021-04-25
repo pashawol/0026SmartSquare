@@ -144,7 +144,7 @@ const JSCCommon = {
 	},
 	animateScroll() {
 
-		$(document).on('click', " .top-nav li a, .scroll-link", function () {
+		$(document).on('click', "  .scroll-link", function () {
 			const elementClick = $(this).attr("href");
 			const destination = $(elementClick).offset().top;
 
@@ -187,90 +187,112 @@ function eventHandler() {
 
 	var tween = new TimelineMax()
 		.add([
-			TweenMax.to(".picture-block--1", 1000, {x:-200,  y: -400, rotation:  -30, duration: 500,   ease: Power1.easeInOut}),
-			TweenMax.to(".picture-block--2", 1000, { x: 200, y: -200, rotation:  30, duration: 500,   ease: Power1.easeInOut}),
-			TweenMax.to(".picture-block--3", 1000, { x: 200, y: 100, rotation:  30, duration: 500,   ease: Power1.easeInOut}),
-			TweenMax.to(".text--1", 500, { opacity:0, duration: 200,   ease: Power1.easeInOut}),
-			TweenMax.to(".text--2", 500, { opacity:1, duration: 200,   ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--1", 1000, {x:-200,  y: -400, rotation:  -30, duration: 500,   ease: Linear.easeNone}),
+			TweenMax.to(".picture-block--2", 1000, { x: 200, y: -200, rotation:  30, duration: 500,   ease: Linear.easeNone}),
+			TweenMax.to(".picture-block--3", 1000, { x: 200, y: 100, rotation:  30, duration: 500,   ease: Linear.easeNone}),
+			TweenMax.to(".text--1", 500, { opacity:0, duration: 200,   ease: Linear.easeNone}),
+			TweenMax.to(".text--2", 500, { opacity:1, duration: 200,   ease: Linear.easeNone}),
 		]) 
 		.add([
-			TweenMax.to(".picture-block--4", 1000, {  scale: .8, duration: 500,   ease: Power1.easeInOut}),
-			TweenMax.to(".picture-block--1", 1000, { x:-200,   y: -600, rotation:  -60, duration: 150,   ease: Power1.easeInOut}),
-			TweenMax.to(".picture-block--2", 1000, { x:200,   y: -800, rotation:  60, duration: 150,   ease: Power1.easeInOut}),
-			TweenMax.to(".picture-block--3", 1000, {x: 500,  y: 100, rotation:  60, duration: 150,   ease: Power1.easeInOut}),
-			TweenMax.to(".text--2", 500, { opacity:0, duration: 100,   ease: Power1.easeInOut}),
-			TweenMax.to(".text--3", 500, { opacity:1, duration: 100,   ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--4", 1000, {  scale: .8, duration: 500,   ease: Linear.easeNone}),
+			TweenMax.to(".picture-block--1", 1000, { x:-200,   y: -600, rotation:  -60, duration: 150,   ease: Linear.easeNone}),
+			TweenMax.to(".picture-block--2", 1000, { x:200,   y: -800, rotation:  60, duration: 150,   ease: Linear.easeNone}),
+			TweenMax.to(".picture-block--3", 1000, {x: 1000,  y: 100, rotation:  60, duration: 150,   ease: Linear.easeNone}),
+			TweenMax.to(".text--2", 500, { opacity:0, duration: 100,   ease: Linear.easeNone}),
+			TweenMax.to(".text--3", 500, { opacity:1, duration: 100,   ease: Linear.easeNone}),
 		])
 		.add([
 			TweenMax.to(".picture-block--4", 3000, { scale: 1, left: -100, top: '14%', duration: 450, ease: "slow(0.5, 0.8, true)"}),
 			TweenMax.to(".headerBlock__block", 1000, {opacity:0, duration: 50, ease: Power1.easeIn }),
-			TweenMax.from(".sAbout", 2000, {y: '50%', opacity:0, duration: 250, ease: Power1.easeInOut }),
-			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+			TweenMax.from(".sAbout", 2000, {y: '50%', opacity:0, duration: 250, ease: Linear.easeNone }),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
 		])
 		.add([
-			TweenMax.to(".picture-block--4", 2000, { x: '-50%', duration: 150, ease: Power1.easeInOut}),
-			TweenMax.to(".sAbout", 2000, {y: '-50%', opacity: .5, duration: 250, ease: Power1.easeInOut }),
-			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+			TweenMax.to(".picture-block--4", 2000, { x: '-50%', duration: 150, ease: Linear.easeNone}),
+			TweenMax.to(".sAbout", 2000, {y: '-50%', opacity: .5, duration: 250, ease: Linear.easeNone }),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
 		])
 		.add([
-			TweenMax.to(".picture-block--4", 1000, { x: '-150%', rotation: -60, duration: 150, ease: Power1.easeInOut}),
-			TweenMax.to(".sAbout", 2000, {y: '-200%', opacity: 0, duration: 50, ease: Power1.easeInOut }),
-			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
-			TweenMax.from(".sContent__text", 2500, { y: '200%', opacity: 0, delay: 100,  duration:450, ease: Power1.easeInOut}),
+			TweenMax.to(".picture-block--4", 1000, { x: '-150%', rotation: -60, duration: 150, ease: Linear.easeNone}),
+			TweenMax.to(".sAbout", 2000, {y: '-200%', opacity: 0, duration: 50, ease: Linear.easeNone }),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
+			TweenMax.from(".sContent__text", 2500, { y: '200%', opacity: 0, delay: 100,  duration:450, ease: Linear.easeNone}),
 			TweenMax.from(".content-picture", 2000, { y: '-10%', opacity: 0, delay: 100,  duration: 550, ease: Power2.easeInOut }),
 		])
 		// .add([
-		// 	// TweenMax.to(".picture-block--4", 1000, { x: '-200%', rotation: -60, delay: -100,  duration: 1500, ease: Power1.easeInOut }),
-		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		// 	// TweenMax.to(".picture-block--4", 1000, { x: '-200%', rotation: -60, delay: -100,  duration: 1500, ease: Linear.easeNone }),
+		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
 		// ])
 		.add([
-			TweenMax.to(".sContent", 3000, { x: '-100%',  duration: 150, ease: Power1.easeInOut}),
-			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+			TweenMax.to(".sContent", 3000, { x: '-100%', opacity:0, duration: 150, ease: Linear.easeNone}),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
 			TweenMax.from(".sWays", 4000, { y: '100%',  duration: 250, ease: Power3.easeInOut}),
 		])
 		.add([
-			TweenMax.to(".sWays", 3000, { y: '-100%', opacity: .8,  duration: 450, ease: Power1.easeInOut}),
-			TweenMax.to(".sCompositions", 4500, { opacity: 1, delay: -100,   duration: 350, ease: Power1.easeInOut}),
-			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+			TweenMax.to(".sWays", 3000, { y: '-100%', opacity: .8,  duration: 450, ease: Linear.easeNone}),
+			TweenMax.to(".sCompositions", 4500, { opacity: 1, delay: -100,   duration: 350, ease: Linear.easeNone}),
+			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
 		])
 		.add([
-			TweenMax.to(".sCompositions", 3000, { y: '-90%',  delay: -500, duration: 350, ease: Power1.easeInOut }),
+			TweenMax.to(".sCompositions", 3000, { y: '-90%',  delay: -500, duration: 350, ease: Linear.easeNone }),
 		])
 		.add([
-			TweenMax.to(".sCompositions", 1000, { y: '-100%', opacity: 0,   duration: 150, ease: Power1.easeInOut }),
-			TweenMax.from(".sServises", 2000, { y: '100%',  delay: -1500, duration: 750, ease: Power1.easeInOut }),
+			TweenMax.to(".sCompositions", 1000, { y: '-100%', opacity: 0,   duration: 150, ease: Linear.easeNone }),
+			TweenMax.from(".sServises", 2000, { y: '100%',  delay: -1500, duration: 750, ease: Linear.easeNone }),
 			TweenMax.to(".picture-block--4", 1000, { rotation: 0,  duration: 150, ease: Power2.easeInOut }),
 		])
 		.add([
 			TweenMax.to(".picture-block--4", 3000, { x: '10%',  duration: 150, ease: Power2.easeInOut }),
-			TweenMax.to(".sServises", 2000, { x: '50%', duration: 70, ease: Power1.easeInOut }),
+			TweenMax.to(".sServises", 2000, { x: '50%', duration: 70, ease: Linear.easeNone }),
 		])
 		.add([
 			TweenMax.to(".picture-block--4", 3000, { x: '10%',  duration: 50, ease: Power2.easeInOut }),
-			TweenMax.to(".sServises", 2000, { x: '50%', l: 0,   duration: 70, ease: Power1.easeInOut }),
+			TweenMax.to(".sServises", 2000, { x: '50%', l: 0,   duration: 70, ease: Linear.easeNone }),
 		])
 		.add([
 			TweenMax.to(".sContact", 2000, { x: '0', l:0,  duration: 50, delay: -1000, ease: Power2.easeInOut }),
 			TweenMax.to(".picture-block--4", 2000, { x: '-80%', left: '100%',  duration: 0, delay: -1000, ease: Power2.easeInOut }),
-			TweenMax.to(".sServises", 2000, { x: '100%', duration: 0, delay: -1000, ease: Power1.easeInOut }),
+			TweenMax.to(".sServises", 2000, { x: '100%', duration: 0, delay: -1000, ease: Linear.easeNone }),
 		])
 		// .add([
 		// 	TweenMax.to(".picture-block--4", 1000, {
 		// 		x: '-50%', rotation: -60, duration: 1500, ease: SteppedEase.config(12),  }),
-		// 	TweenMax.to(".sAbout", 2000, {y: '-100%', opacity: .5, duration: 3500, ease: Power1.easeInOut }),
-		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Power1.easeInOut }),
+		// 	TweenMax.to(".sAbout", 2000, {y: '-100%', opacity: .5, duration: 3500, ease: Linear.easeNone }),
+		// 	// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
 		// ])
 	
 		
 	// build scene
 
+	
 
-		new ScrollMagic
+		var scene = new ScrollMagic
 		.Scene({ triggerElement: ".main-wrapper", triggerHook: "onLeave", duration: '1500%', offset: '0%' })
 		.setTween(tween)
 		.setPin(".main-wrapper")
 		// .addIndicators() // add indicators (requires plugin)
 		.addTo(controller);
+
+
+
+		// change behaviour of controller to animate scroll instead of jump
+		controller.scrollTo(function (newpos) {
+			TweenMax.to(window, 0.5, { scrollTo: { y: newpos } });
+		});
+
+		//  bind scroll to anchor links
+		$(document).on("click", ".menu a[href^='#']", function (e) {
+			console.log(this);
+			var id = $(this).attr("href");
+			if ($(id).length > 0) {
+				e.preventDefault();
+
+				// trigger scroll
+				controller.scrollTo(id);
+
+			}
+		});
+
 	}
 	window.onload = function () {
 	$("body").removeClass("loaded_hiding")
