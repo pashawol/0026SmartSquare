@@ -8,7 +8,7 @@
 		top: 0;
 		opacity: 0;
 		--sPT: calc( #{rem(70)} + 10vh);
-		z-index: -1;
+		z-index: 1;
 	}
 	h2{
 		font-size: rem(24);
