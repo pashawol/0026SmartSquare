@@ -409,8 +409,7 @@ function eventHandler() {
 
 			if ($(id).length > 0) {
 				e.preventDefault(); // trigger scroll
-
-				controller.scrollTo(id);
+				// controller.scrollTo(id);
 			}
 		});
 	}

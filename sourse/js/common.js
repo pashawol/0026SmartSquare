@@ -288,7 +288,7 @@ function eventHandler() {
 				e.preventDefault();
 
 				// trigger scroll
-				controller.scrollTo(id);
+				// controller.scrollTo(id);
 
 			}
 		});
