@@ -112,6 +112,7 @@ body {
 	@include bgs;
 	padding-top: var(--sPT);
 	padding-bottom: var(--sPB);
+	z-index: 2;
 	@include media-breakpoint-up(lg) {
 
 		min-height: calc(var(--vh, 1vh) * 100);
