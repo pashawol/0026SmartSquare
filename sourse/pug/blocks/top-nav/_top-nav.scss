@@ -11,9 +11,15 @@
 	z-index: 800;
 
 	padding-top: calc(var(--sPT) - #{rem(50)});
+	border-bottom: 1px solid transparent;
+	@include mt;
 	&.fixed { 
 		bottom: auto;
 		margin-top: 0;
+		background-color: #fff;
+		padding-top: calc(#{rem(10)});
+		padding-bottom: rem(10);
+		border-color: #ccc;
 	}
 	.row{
 	align-items: center;
@@ -22,7 +28,9 @@
 	&__logo{
 		margin-right: rem(120);
 	}
-
+	a.active{
+		color: $primary;
+	}
 	// 
 	@include media-breakpoint-up(xl) {}
 

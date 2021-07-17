@@ -176,11 +176,56 @@ function eventHandler() {
 		$("body").addClass("fixedd")
 	})
 
+
+	function setFixedNav() {
+		let topNav = document.querySelector('.top-nav  ');
+		if (!topNav) return;
+		window.scrollY > 0
+			? topNav.classList.add('fixed')
+			: topNav.classList.remove('fixed');
+	}
+
+	function whenResize() {
+		setFixedNav();
+	}
+
+	window.addEventListener('scroll', () => {
+		setFixedNav();
+
+	}, { passive: true })
+	window.addEventListener('resize', () => {
+		whenResize();
+	}, { passive: true });
+
+	whenResize();
+
+	
 	
 	
 	if (window.matchMedia("(min-width: 992px)").matches) {
-	var controller = new ScrollMagic.Controller();
-
+		var controller = new ScrollMagic.Controller();
+		
+		
+			// new ScrollMagic.Scene({ triggerElement: "#sWays" })
+			// 	.setClassToggle(`[href="#sWays"]`, "active") // add class toggle
+			// 	// .addIndicators() // add indicators (requires plugin)
+			// 	.addTo(controller);
+			// new ScrollMagic.Scene({ triggerElement: "#sCompositions" })
+			// 	.setClassToggle(`[href="#sCompositions"]`, "active") // add class toggle
+			// 	// .addIndicators() // add indicators (requires plugin)
+			// 	.addTo(controller);
+			// new ScrollMagic.Scene({ triggerElement: "#sServises" })
+			// 	.setClassToggle(`[href="#sServises"]`, "active") // add class toggle
+			// 	// .addIndicators() // add indicators (requires plugin)
+			// 	.addTo(controller);
+			// new ScrollMagic.Scene({ triggerElement: "#sContact" })
+			// 	.setClassToggle(`[href="#sContact"]`, "active") // add class toggle
+			// 	// .addIndicators() // add indicators (requires plugin)
+			// 	.addTo(controller);
+			// new ScrollMagic.Scene({ triggerElement: "#sWays" })
+			// 	.setClassToggle(`[href="#sWays"]`, "active") // add class toggle
+			// 	// .addIndicators() // add indicators (requires plugin)
+			// 	.addTo(controller);
 
 	let height = window.innerHeight;
 
@@ -202,9 +247,10 @@ function eventHandler() {
 			TweenMax.to(".text--3", 500, { opacity:1, duration: 100,   ease: Linear.easeNone}),
 		])
 		.add([
+			// TweenLite.set(".sAbout", 2000, { className: '+=section-show'}),
 			TweenMax.to(".picture-block--4", 3000, { scale: 1, left: -100, top: '14%', duration: 450, ease: "slow(0.5, 0.8, true)"}),
 			TweenMax.to(".headerBlock__block", 1000, {opacity:0, duration: 50, ease: Power1.easeIn }),
-			TweenMax.from(".sAbout", 2000, {y: '50%', opacity:0, duration: 250, ease: Linear.easeNone }),
+			TweenMax.from(".sAbout", 2000, { y: '50%', opacity: 0, duration: 250, ease: Linear.easeNone }),
 			// TweenMax.from(".sAbout", 1000, {y: '100%', opacity:0, duration: 500, ease: Linear.easeNone }),
 		])
 		.add([
@@ -273,27 +319,46 @@ function eventHandler() {
 		// .addIndicators() // add indicators (requires plugin)
 		.addTo(controller);
 
+		// get the current scene progress
+		var start = scene.scrollOffset();
+		var end = scene.scrollOffset() + scene.duration();
+
+ 
+
 
 
 		// change behaviour of controller to animate scroll instead of jump
-		controller.scrollTo(function (newpos) {
-			TweenMax.to(window, 0.5, { scrollTo: { y: newpos } });
-		});
+		// controller.scrollTo(function (newpos) {
+		// 	TweenMax.to(window, 0.5, { scrollTo: { y: newpos } });
+		// });
 
+		
+		$('[href="#sCompositions"]').click(function (e) {
+			
+			// var offset = $("#sCompositions").offset().top;
+			// TweenLite.to(window, 1, { scrollTo: { y: offset } });
+
+			gsap.to(window, { duration: 2, scrollTo: "#sCompositions" });
+		}); 
+		var triggerPosition = scene;
+		console.log(triggerPosition);
 		//  bind scroll to anchor links
-		$(document).on("click", ".menu a[href^='#']", function (e) {
-			console.log(this);
-			var id = $(this).attr("href");
-			if ($(id).length > 0) {
-				e.preventDefault();
-
-				// trigger scroll
-				// controller.scrollTo(id);
-
-			}
-		});
+		$('[href="#sContact"]').click(function(e){
+			e.preventDefault();
+			$('html, body').animate({ scrollTop: end }, 1000);
+			console.log(triggerPosition);
+		})
+		$('[href="/"]').click(function(e){
+			e.preventDefault();
+			$('html, body').animate({ scrollTop: 0 }, 1000);
+			console.log(triggerPosition);
+		})
 
 	}
+
+
+
+
 	window.onload = function () {
 	$("body").removeClass("loaded_hiding")
 	}
@@ -303,6 +368,10 @@ if (document.readyState !== 'loading') {
 } else {
 	document.addEventListener('DOMContentLoaded', eventHandler);
 }
+
+
+
+
 
 // window.onload = function () {
 // 	document.body.classList.add('loaded_hiding');

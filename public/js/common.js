@@ -193,8 +193,50 @@ function eventHandler() {
 		$("body").addClass("fixedd");
 	});
 
+	function setFixedNav() {
+		var topNav = document.querySelector('.top-nav  ');
+		if (!topNav) return;
+		window.scrollY > 0 ? topNav.classList.add('fixed') : topNav.classList.remove('fixed');
+	}
+
+	function whenResize() {
+		setFixedNav();
+	}
+
+	window.addEventListener('scroll', function () {
+		setFixedNav();
+	}, {
+		passive: true
+	});
+	window.addEventListener('resize', function () {
+		whenResize();
+	}, {
+		passive: true
+	});
+	whenResize();
+
 	if (window.matchMedia("(min-width: 992px)").matches) {
-		var controller = new ScrollMagic.Controller();
+		var controller = new ScrollMagic.Controller(); // new ScrollMagic.Scene({ triggerElement: "#sWays" })
+		// 	.setClassToggle(`[href="#sWays"]`, "active") // add class toggle
+		// 	// .addIndicators() // add indicators (requires plugin)
+		// 	.addTo(controller);
+		// new ScrollMagic.Scene({ triggerElement: "#sCompositions" })
+		// 	.setClassToggle(`[href="#sCompositions"]`, "active") // add class toggle
+		// 	// .addIndicators() // add indicators (requires plugin)
+		// 	.addTo(controller);
+		// new ScrollMagic.Scene({ triggerElement: "#sServises" })
+		// 	.setClassToggle(`[href="#sServises"]`, "active") // add class toggle
+		// 	// .addIndicators() // add indicators (requires plugin)
+		// 	.addTo(controller);
+		// new ScrollMagic.Scene({ triggerElement: "#sContact" })
+		// 	.setClassToggle(`[href="#sContact"]`, "active") // add class toggle
+		// 	// .addIndicators() // add indicators (requires plugin)
+		// 	.addTo(controller);
+		// new ScrollMagic.Scene({ triggerElement: "#sWays" })
+		// 	.setClassToggle(`[href="#sWays"]`, "active") // add class toggle
+		// 	// .addIndicators() // add indicators (requires plugin)
+		// 	.addTo(controller);
+
 		var height = window.innerHeight;
 		var tween = new TimelineMax().add([TweenMax.to(".picture-block--1", 1000, {
 			x: -200,
@@ -252,7 +294,8 @@ function eventHandler() {
 			opacity: 1,
 			duration: 100,
 			ease: Linear.easeNone
-		})]).add([TweenMax.to(".picture-block--4", 3000, {
+		})]).add([// TweenLite.set(".sAbout", 2000, { className: '+=section-show'}),
+		TweenMax.to(".picture-block--4", 3000, {
 			scale: 1,
 			left: -100,
 			top: '14%',
@@ -393,24 +436,38 @@ function eventHandler() {
 			duration: '1500%',
 			offset: '0%'
 		}).setTween(tween).setPin(".main-wrapper") // .addIndicators() // add indicators (requires plugin)
-		.addTo(controller); // change behaviour of controller to animate scroll instead of jump
+		.addTo(controller); // get the current scene progress
 
-		controller.scrollTo(function (newpos) {
-			TweenMax.to(window, 0.5, {
-				scrollTo: {
-					y: newpos
-				}
+		var start = scene.scrollOffset();
+		var end = scene.scrollOffset() + scene.duration(); // change behaviour of controller to animate scroll instead of jump
+		// controller.scrollTo(function (newpos) {
+		// 	TweenMax.to(window, 0.5, { scrollTo: { y: newpos } });
+		// });
+
+		$('[href="#sCompositions"]').click(function (e) {
+			// var offset = $("#sCompositions").offset().top;
+			// TweenLite.to(window, 1, { scrollTo: { y: offset } });
+			gsap.to(window, {
+				duration: 2,
+				scrollTo: "#sCompositions"
 			});
-		}); //  bind scroll to anchor links
+		});
+		var triggerPosition = scene;
+		console.log(triggerPosition); //  bind scroll to anchor links
 
-		$(document).on("click", ".menu a[href^='#']", function (e) {
-			console.log(this);
-			var id = $(this).attr("href");
-
-			if ($(id).length > 0) {
-				e.preventDefault(); // trigger scroll
-				// controller.scrollTo(id);
-			}
+		$('[href="#sContact"]').click(function (e) {
+			e.preventDefault();
+			$('html, body').animate({
+				scrollTop: end
+			}, 1000);
+			console.log(triggerPosition);
+		});
+		$('[href="/"]').click(function (e) {
+			e.preventDefault();
+			$('html, body').animate({
+				scrollTop: 0
+			}, 1000);
+			console.log(triggerPosition);
 		});
 	}
 
