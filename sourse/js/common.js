@@ -144,7 +144,7 @@ const JSCCommon = {
 	},
 	animateScroll() {
 
-		$(document).on('click', "  .scroll-link", function () {
+		$(document).on('click', " .menu a", function () {
 			const elementClick = $(this).attr("href");
 			const destination = $(elementClick).offset().top;
 
@@ -167,7 +167,7 @@ function eventHandler() {
 	JSCCommon.sendForm();
 	JSCCommon.mobileForm();
 	JSCCommon.heightwindow();
-	JSCCommon.animateScroll();
+	// JSCCommon.animateScroll();
 	JSCCommon.getCurrentYear('.current-year');
   
 	$(".toggle-form-text").click(function(e){
@@ -316,7 +316,7 @@ function eventHandler() {
 		.Scene({ triggerElement: ".main-wrapper", triggerHook: "onLeave", duration: '1500%', offset: '0%' })
 		.setTween(tween)
 		.setPin(".main-wrapper")
-		// .addIndicators() // add indicators (requires plugin)
+			// .addIndicators({ name: "1 (duration: 0)" })
 		.addTo(controller);
 
 		// get the current scene progress
@@ -332,19 +332,19 @@ function eventHandler() {
 		// 	TweenMax.to(window, 0.5, { scrollTo: { y: newpos } });
 		// });
 
-		
-		$('[href="#sCompositions"]').click(function (e) {
-			
+	
+		$('[href="#sWays"]').click(function (e) {
+			e.preventDefault();
+			end = document.querySelector('.headerBlock').offsetHeight  + document.querySelector('.sAbout').offsetHeight   	+ document.querySelector('.sContent').offsetHeight ;
+						console.log(end);
+			$('html, body').animate({ scrollTop: 6800 }, 1000);
 			// var offset = $("#sCompositions").offset().top;
 			// TweenLite.to(window, 1, { scrollTo: { y: offset } });
-
-			gsap.to(window, { duration: 2, scrollTo: "#sCompositions" });
 		}); 
 		var triggerPosition = scene;
 		console.log(triggerPosition);
 		//  bind scroll to anchor links
 		$('[href="#sContact"]').click(function(e){
-			e.preventDefault();
 			$('html, body').animate({ scrollTop: end }, 1000);
 			console.log(triggerPosition);
 		})
@@ -356,12 +356,17 @@ function eventHandler() {
 
 	}
 
-
+window.addEventListener("scroll", function(){
+	var scrollPos = controller.info("scrollPos");
+	console.log(scrollPos);
+})
 
 
 	window.onload = function () {
 	$("body").removeClass("loaded_hiding")
 	}
+
+
 };
 if (document.readyState !== 'loading') {
 	eventHandler();

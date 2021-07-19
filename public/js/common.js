@@ -163,7 +163,7 @@ var JSCCommon = {
 		});
 	},
 	animateScroll: function animateScroll() {
-		$(document).on('click', "  .scroll-link", function () {
+		$(document).on('click', " .menu a", function () {
 			var elementClick = $(this).attr("href");
 			var destination = $(elementClick).offset().top;
 			$('html, body').animate({
@@ -184,8 +184,8 @@ function eventHandler() {
 
 	JSCCommon.sendForm();
 	JSCCommon.mobileForm();
-	JSCCommon.heightwindow();
-	JSCCommon.animateScroll();
+	JSCCommon.heightwindow(); // JSCCommon.animateScroll();
+
 	JSCCommon.getCurrentYear('.current-year');
 	$(".toggle-form-text").click(function (e) {
 		e.preventDefault();
@@ -435,7 +435,7 @@ function eventHandler() {
 			triggerHook: "onLeave",
 			duration: '1500%',
 			offset: '0%'
-		}).setTween(tween).setPin(".main-wrapper") // .addIndicators() // add indicators (requires plugin)
+		}).setTween(tween).setPin(".main-wrapper") // .addIndicators({ name: "1 (duration: 0)" })
 		.addTo(controller); // get the current scene progress
 
 		var start = scene.scrollOffset();
@@ -444,19 +444,19 @@ function eventHandler() {
 		// 	TweenMax.to(window, 0.5, { scrollTo: { y: newpos } });
 		// });
 
-		$('[href="#sCompositions"]').click(function (e) {
-			// var offset = $("#sCompositions").offset().top;
+		$('[href="#sWays"]').click(function (e) {
+			e.preventDefault();
+			end = document.querySelector('.headerBlock').offsetHeight + document.querySelector('.sAbout').offsetHeight + document.querySelector('.sContent').offsetHeight;
+			console.log(end);
+			$('html, body').animate({
+				scrollTop: 6800
+			}, 1000); // var offset = $("#sCompositions").offset().top;
 			// TweenLite.to(window, 1, { scrollTo: { y: offset } });
-			gsap.to(window, {
-				duration: 2,
-				scrollTo: "#sCompositions"
-			});
 		});
 		var triggerPosition = scene;
 		console.log(triggerPosition); //  bind scroll to anchor links
 
 		$('[href="#sContact"]').click(function (e) {
-			e.preventDefault();
 			$('html, body').animate({
 				scrollTop: end
 			}, 1000);
@@ -470,6 +470,11 @@ function eventHandler() {
 			console.log(triggerPosition);
 		});
 	}
+
+	window.addEventListener("scroll", function () {
+		var scrollPos = controller.info("scrollPos");
+		console.log(scrollPos);
+	});
 
 	window.onload = function () {
 		$("body").removeClass("loaded_hiding");
